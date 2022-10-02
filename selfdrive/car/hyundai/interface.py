@@ -90,10 +90,12 @@ class CarInterface(CarInterfaceBase):
     ret.longitudinalTuning.kpV = [0.1]
     ret.longitudinalTuning.kiV = [0.0]
     ret.stopAccel = 0.0
+    ret.wheelbase = 2.845
+
 
     ret.longitudinalActuatorDelayUpperBound = 1.0 # s
     ret.atomHybridSpeed = 50 * CV.KPH_TO_MS
-
+    
 
     if candidate in (CAR.GRANDEUR_HEV_19):
       ret.mass = 1675. + STD_CARGO_KG
@@ -185,9 +187,9 @@ class CarInterface(CarInterfaceBase):
       ret.lateralTuning.indi.actuatorEffectivenessBP = [0.]
       ret.lateralTuning.indi.actuatorEffectivenessV = [2.3]
       ret.minSteerSpeed = 60 * CV.KPH_TO_MS
-    elif candidate in (CAR.KONA, CAR.KONA_EV, CAR.KONA_HEV):
+    elif candidate in (CAR.KONA, CAR.KONA_EV, CAR.KONA_HEV, CAR.KONA_EV_2022):
       ret.lateralTuning.pid.kf = 0.00005
-      ret.mass = {CAR.KONA_EV: 1685., CAR.KONA_HEV: 1425.}.get(candidate, 1275.) + STD_CARGO_KG
+      ret.mass = {CAR.KONA_EV: 1685., CAR.KONA_HEV: 1425., CAR.KONA_EV_2022: 1743.}.get(candidate, 1275.) + STD_CARGO_KG
       ret.wheelbase = 2.6
       ret.steerRatio = 13.42  # Spec
       tire_stiffness_factor = 0.385
