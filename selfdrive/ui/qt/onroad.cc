@@ -557,8 +557,8 @@ void NvgWindow::drawLaneLines(QPainter &painter, const UIState *s) {
   }
 
   painter.setBrush(bg);
-  painter.drawPolygon(scene.track_vertices);
-
+  ui_draw_line( painter, scene.track_vertices );
+  //painter.drawPolygon(scene.track_vertices.v, scene.track_vertices.cnt);
 
   // stop line
   if (scene.scr.stop_line && scene.stop_line_probs > 0.5 )
