@@ -62,6 +62,7 @@ class NaviControl():
     self.auto_resume_time = 0
 
 
+
   def update_lateralPlan( self ):
     self.sm.update(0)
     path_plan = self.sm['lateralPlan']
@@ -138,11 +139,11 @@ class NaviControl():
       standstill = CS.out.cruiseState.standstill
       if not standstill:
         self.seq_command = 0
-      elif CS.lead_distance < 5:
+      elif CS.lead_distance < 4:
         self.last_lead_distance = 0
       elif self.last_lead_distance == 0:  
         self.last_lead_distance = CS.lead_distance
-      elif CS.lead_distance != self.last_lead_distance:
+      elif CS.lead_distance > self.last_lead_distance:
         self.seq_command = 6
         self.btn_cnt = 0
       return  None
@@ -187,20 +188,24 @@ class NaviControl():
       return dRel1, dRel2
 
 
-  def get_auto_resume(self):
+  def get_auto_resume(self, CS):
+    v_ego_kph = CS.out.vEgo * CV.MS_TO_KPH 
     model_v2 = self.sm['modelV2']
     lanePos = model_v2.position
     distance = 0
     if len(lanePos.x) > 0:
       distance = lanePos.x[-1]
 
-    if distance < 10:
-      self.auto_resume_time = 100
+    if distance < 2:
+      self.auto_resume_time = 10
     elif  self.auto_resume_time > 0:
       self.auto_resume_time -= 1
 
-    if self.auto_resume_time > 0:
-      distance = 0
+
+    if self.auto_resume_time <= 1 and v_ego_kph < 1:
+      self.event_navi_alert = EventName.manualRestart
+
+
 
     return  distance
 
