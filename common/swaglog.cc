@@ -14,7 +14,7 @@
 
 #include "common/util.h"
 #include "common/version.h"
-#include "selfdrive/hardware/hw.h"
+#include "system/hardware/hw.h"
 
 class SwaglogState : public LogState {
  public:
@@ -50,14 +50,7 @@ class SwaglogState : public LogState {
     ctx_j["dirty"] = !getenv("CLEAN");
 
     // device type
-    if (Hardware::EON()) {
-      ctx_j["device"] =  "eon";
-    } else if (Hardware::TICI()) {
-      ctx_j["device"] =  "tici";
-    } else {
-      ctx_j["device"] =  "pc";
-    }
-
+    ctx_j["device"] = Hardware::get_name();
     initialized = true;
   }
 };

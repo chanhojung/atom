@@ -92,13 +92,11 @@ private:
   QPixmap img_narrow_road;
   QPixmap img_rail_road;
 
-  QPixmap img_overtrack;
+  //QPixmap img_overtrack;
   QPixmap img_park_crackdown;
 
 
-  const int img_size_rpm = 300;
-  QPixmap img_rpm1;
-  QPixmap img_rpm2;
+
 
 
 // osm
